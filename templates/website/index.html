@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+            Dashboard &middot; Butterfly Corner
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load static %}
+    <link rel="stylesheet" href="{% static 'website/css/library.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/style.min.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <script src="{% static 'website/js/jquery.min.js' %}"></script>
+    <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png">
+</head>
+
+<body id="landing" class="sidebar-open">
+<div class="page-container animsition">
+    <div id="dashboardPage">
+
+<div class="topbar sidebar-open">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 col-4">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo-emblem">BG</span>
+                        <span class="logo-full">Butterfly Garden</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-7 col-8 text-right">
+                <ul>
+                    <li class="btn-group user-account">
+                        <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="user-content">
+                                <div class="user-name">Admin</div>
+                            </div>
+                            <div class="avatar">
+                                <img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fau.junkfreejune.org%2Fthemes%2Fbase%2Fproduction%2Fimages%2Fdefault-profile.png&f=1" alt="profile" />
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right animated bounceInUp">
+                            <li><a href="index.html" class="animsition-link dropdown-item"><i class="feather icon-log-in"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<aside class="offcanvas-menu">
+    slideout menu here
+</aside>
+
+<div class="sidebar sidebar-open">
+    <div class="logo">
+        <a href="index.html">
+            <span class="logo-emblem">BG</span>
+            <span class="logo-full">Butterfly Garden</span>
+        </a>
+    </div>
+    <ul>
+
+        <li class="title">
+            <i class="fas fa-ellipsis-v"></i>
+            <span class="menu-title">Main</span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link wave-effect collapsed wave-effect" data-toggle="collapse" href="#navDashboard" aria-expanded="false" aria-controls="page-dashboards">
+                <i class="fas fa-ticket-alt"></i>
+                <span class="menu-title">Book ticket</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link wave-effect collapsed" data-toggle="collapse" href="#navPageLayouts" aria-expanded="false" aria-controls="page-layouts">
+                <i class="fas fa-chart-line"></i>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        <li class="spacer"></li>
+
+    </ul>
+</div>
+
+        <main>
+<div class="page-breadcrumb">
+
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-md-flex align-items-center">
+                        <div>
+                            <h4 class="card-title">Welcome</h4>
+                            <p class="card-subtitle">Admin : Ticket Booking System</p>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="dl">
+                                <select class="custom-select">
+                                    <option value="0" selected="">Monthly</option>
+                                    <option value="1">Daily</option>
+                                    <option value="2">Weekly</option>
+                                    <option value="3">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                  <section id="forms" class="section">
+                  	<div class="container-fluid">
+                          <div class="card">
+                      		<div class="card-body">
+                            <form method="post">
+                              {% csrf_token %}
+                              <div class="row mb-4">
+                          			<div class="col">
+                          				<h6 class="">No. Of Adults</h6>
+                          				<input type="text" name="adult" class="form-control" id="" placeholder="" required="">
+                          			</div>
+                          			<div class="col">
+                          				<h6 class="">No. Of Children</h6>
+                          				<input type="text" name="children" class="form-control" id="" placeholder="" required="">
+                          			</div>
+                          			<div class="col">
+                          				<h6 class="">Name</h6>
+                          				<input type="text" name="name" class="form-control" id="" placeholder="" required="">
+                          			</div>
+                          		</div>
+                              <div class="row mb-4">
+                          			<div class="col">
+                          				<h6 >Email-Address</h6>
+                          				<input type="text" name="email" class="form-control" id="" placeholder="" required="">
+                          			</div>
+                          			<div class="col">
+                          				<h6 >Mobile Number</h6>
+                          				<input type="text" name="no" class="form-control" id="" placeholder="" required="">
+                          			</div>
+                          		</div>
+                              <input type="submit" name="submit" class="btn btn-twitter" value="Confirm">
+                              </form>
+
+                              </div>
+                          </div>
+                  	</div>
+                  </section>
+                    <!-- <table class="table v-middle">
+                        <thead>
+                            <tr class="bg-light">
+                                <th class="border-top-0">Products</th>
+                                <th class="border-top-0">License</th>
+                                <th class="border-top-0">Support Agent</th>
+                                <th class="border-top-0">Technology</th>
+                                <th class="border-top-0">Tickets</th>
+                                <th class="border-top-0">Sales</th>
+                                <th class="border-top-0">Earnings</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="m-r-10"><a class="btn btn-circle btn-info text-white">EA</a></div>
+                                        <div class="">
+                                            <h4 class="m-b-0 font-16">Elite Admin</h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Single Use</td>
+                                <td>John Doe</td>
+                                <td>
+                                    <label class="label label-danger">Angular</label>
+                                </td>
+                                <td>46</td>
+                                <td>356</td>
+                                <td>
+                                    <h5 class="m-b-0">$2850.06</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</main>
+</div>
+</div>
+
+<script src="{% static 'website/js/jquery-ui.min.js' %}" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+<script src="{% static 'website/js/popper.min.js' %}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="{% static 'website/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'website/js/library.min.js' %}"></script>
+
+
+
+<script src="{% static 'website/js/main.js' %}"></script>
+
+</body>
+
+</html>
