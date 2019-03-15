@@ -124,57 +124,42 @@
 
                 </div>
                 <div class="table-responsive">
-                  <section id="forms" class="section">
-                  	<div class="container-fluid">
-                          <div class="card">
-                      		<div class="card-body">
-                            <form method="post">
-                              {% csrf_token %}
-                              <div class="row mb-4">
-                          			<div class="col">
-                          				<h6 class="">No. Of Adults</h6>
-                          				<input type="text" name="adult" class="form-control input adult" placeholder="" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 class="">No. Of Children</h6>
-                          				<input type="text" name="children" class="form-control input children" placeholder="" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 class="">Name</h6>
-                          				<input type="text" name="name" class="form-control" id="" placeholder="" required="">
-                          			</div>
-                          		</div>
-                              <div class="row mb-4">
-                          			<div class="col">
-                          				<h6 >Email-Address</h6>
-                          				<input type="text" name="email" class="form-control" id="" placeholder="" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 >Mobile Number</h6>
-                          				<input type="text" name="no" class="form-control" id="" placeholder="" required="">
-                          			</div>
-                          		</div>
-                              <div class="row mb-4">
-                          			<div class="col">
-                          				<h6 class="">Adult Price</h6>
-                          				<input type="text" name="adult" disabled="disabled" class="form-control" id="adult_price" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 class="">Children Price</h6>
-                          				<input type="text" name="children" disabled="disabled" class="form-control" id="children_price" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 class="">Total</h6>
-                          				<input type="text" name="name" disabled="disabled" class="form-control" id="total_price" required="">
-                          			</div>
-                          		</div>
-                              <input type="submit" name="submit" class="btn btn-twitter" value="Confirm">
-
-                          </form>
-                            </div>
-                          </div>
-                  	</div>
-                  </section>
+                    <table class="table v-middle">
+                        <thead>
+                            <tr class="bg-light">
+                                <th class="border-top-0">Sr. No</th>
+                                <th class="border-top-0">Date</th>
+                                <th class="border-top-0">Time</th>
+                                <th class="border-top-0">Name</th>
+                                <th class="border-top-0">Adult</th>
+                                <th class="border-top-0">Children</th>
+                                <th class="border-top-0">More Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              {% for obj in user_data_obj %}
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="">
+                                            <h4 class="m-b-0 font-16">{{obj.pk}}</h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{obj.date}}</td>
+                                <td>{{obj.time}}</td>
+                                <td>
+                                    <label class="label label-danger">{{obj.customer_name}}</label>
+                                </td>
+                                <td>{{obj.adult}}</td>
+                                <td>{{obj.children}}</td>
+                                <td>
+                                  <a href="{{obj.qr_link}}">Click Here</a>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -193,17 +178,6 @@
 
 
 <script src="{% static 'website/js/main.js' %}"></script>
-<script>
-$(document).ready(function(){
-    $(".input").keyup(function(){
-          var val1 = +$(".adult").val();
-          var val2 = +$(".children").val();
-          $("#adult_price").val(val1*500);
-          $("#children_price").val(val2*350);
-          $("#total_price").val(val1*500 + val2*350);
-   });
-});
-</script>
 
 </body>
 

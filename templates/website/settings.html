@@ -108,73 +108,11 @@
                     <div class="d-md-flex align-items-center">
                         <div>
                             <h4 class="card-title">Welcome</h4>
-                            <p class="card-subtitle">Admin : Ticket Booking System</p>
+                            <p class="card-subtitle">Admin : Make Changes in System</p>
                         </div>
-                        <div class="ml-auto">
-                            <div class="dl">
-                                <select class="custom-select">
-                                    <option value="0" selected="">Monthly</option>
-                                    <option value="1">Daily</option>
-                                    <option value="2">Weekly</option>
-                                    <option value="3">Yearly</option>
-                                </select>
-                            </div>
-                        </div>
+
                     </div>
 
-                </div>
-                <div class="table-responsive">
-                  <section id="forms" class="section">
-                  	<div class="container-fluid">
-                          <div class="card">
-                      		<div class="card-body">
-                            <form method="post">
-                              {% csrf_token %}
-                              <div class="row mb-4">
-                          			<div class="col">
-                          				<h6 class="">No. Of Adults</h6>
-                          				<input type="text" name="adult" class="form-control input adult" placeholder="" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 class="">No. Of Children</h6>
-                          				<input type="text" name="children" class="form-control input children" placeholder="" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 class="">Name</h6>
-                          				<input type="text" name="name" class="form-control" id="" placeholder="" required="">
-                          			</div>
-                          		</div>
-                              <div class="row mb-4">
-                          			<div class="col">
-                          				<h6 >Email-Address</h6>
-                          				<input type="text" name="email" class="form-control" id="" placeholder="" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 >Mobile Number</h6>
-                          				<input type="text" name="no" class="form-control" id="" placeholder="" required="">
-                          			</div>
-                          		</div>
-                              <div class="row mb-4">
-                          			<div class="col">
-                          				<h6 class="">Adult Price</h6>
-                          				<input type="text" name="adult" disabled="disabled" class="form-control" id="adult_price" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 class="">Children Price</h6>
-                          				<input type="text" name="children" disabled="disabled" class="form-control" id="children_price" required="">
-                          			</div>
-                          			<div class="col">
-                          				<h6 class="">Total</h6>
-                          				<input type="text" name="name" disabled="disabled" class="form-control" id="total_price" required="">
-                          			</div>
-                          		</div>
-                              <input type="submit" name="submit" class="btn btn-twitter" value="Confirm">
-
-                          </form>
-                            </div>
-                          </div>
-                  	</div>
-                  </section>
                 </div>
             </div>
         </div>
@@ -193,17 +131,6 @@
 
 
 <script src="{% static 'website/js/main.js' %}"></script>
-<script>
-$(document).ready(function(){
-    $(".input").keyup(function(){
-          var val1 = +$(".adult").val();
-          var val2 = +$(".children").val();
-          $("#adult_price").val(val1*500);
-          $("#children_price").val(val2*350);
-          $("#total_price").val(val1*500 + val2*350);
-   });
-});
-</script>
 
 </body>
 
