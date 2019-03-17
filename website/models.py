@@ -7,9 +7,9 @@ class user_data(models.Model):
     adult = models.IntegerField()
     children = models.IntegerField()
     date = models.DateField(auto_now_add=True)
-    # date.editable=True
+    date.editable=True
     time = models.TimeField(auto_now_add=True)
-    # time.editable=True
+    time.editable=True
     qr_link = models.CharField(max_length=2000, default='')
     total_price = models.IntegerField()
 
