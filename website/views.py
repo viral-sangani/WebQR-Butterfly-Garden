@@ -54,9 +54,10 @@ def dashboard(request):
 		user_data_page = paginator.page(1)
 	except EmptyPage:
 		user_data_page = paginator.page(paginator.num_pages)
-
+	count = user_data.objects.all().count()
 	context = {
 	'user_data_page':user_data_page,
+	'count':count,
 	}
 	return render(request,'website/dashboard.html',context)
 
