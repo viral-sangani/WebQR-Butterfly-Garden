@@ -114,6 +114,66 @@
                     </div>
 
                 </div>
+                <div class="table-responsive">
+                  <section id="forms" class="section">
+                    <div class="container-fluid">
+                          <div class="card">
+                          <div class="card-body">
+
+                            <form method="post" id="make_pdf">
+                              {% csrf_token %}
+                              <div class="row mb-4">
+                                <div class="col">
+                                  <h6 class="">Adult Price</h6>
+                                  <input type="text" id="adult" name="adult" class="form-control input adult" value="{{adult_price}}" placeholder="" required="">
+                                </div>
+                                <div class="col">
+                                  <h6 class="">Children Price</h6>
+                                  <input type="text" id="children" name="children" class="form-control input children" value="{{children_price}}" placeholder="" required="">
+                                </div>
+
+
+                            </div>
+                            <input type="submit" name="price" class="btn btn-twitter" value="Update">
+                          </form>
+
+                            </div>
+                          </div>
+                    </div>
+                  </section>
+                </div>
+                <div class="table-responsive">
+                  <section id="forms" class="section">
+                    <div class="container-fluid">
+                          <div class="card">
+                          <div class="card-body">
+
+                            <form method="post" id="make_pdf">
+                              {% csrf_token %}
+                              <div class="row mb-4">
+                                <div class="col">
+                                  <h6 class="">Email</h6>
+                                  <input type="text" id="adult" name="email_id" class="form-control input adult" value="{{email}}" placeholder="" required="">
+                                </div>
+                                <div class="col">
+                                  <h6 class="">Password</h6>
+                                  <input type="text" id="children" name="password" class="form-control input children" value="{{password}}" placeholder="" required="">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                              <div class="col">
+                                <h6 class="">Default text</h6>
+                                <input type="text" id="children" name="default" class="form-control input children" value="{{default_text}}" placeholder="" required="">
+                              </div>
+                            </div>
+                            <input type="submit" name="email" class="btn btn-twitter" value="Update">
+                          </form>
+
+                            </div>
+                          </div>
+                    </div>
+                  </section>
+                </div>
             </div>
         </div>
     </div>
@@ -123,12 +183,10 @@
 </div>
 </div>
 
-<script src="{% static 'website/js/jquery-ui.min.js' %}" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
-<script src="{% static 'website/js/popper.min.js' %}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="{% static 'website/js/jquery-ui.min.js' %}" ></script>
+<script src="{% static 'website/js/popper.min.js' %}"></script>
 <script src="{% static 'website/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'website/js/library.min.js' %}"></script>
-<script src="{% static 'website/js/waypoint.js' %}"></script>
-<script src="{% static 'website/js/Infinite.js' %}"></script>
 <script src="{% static 'website/js/main.js' %}"></script>
 
 

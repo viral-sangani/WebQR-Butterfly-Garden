@@ -16,9 +16,17 @@ class user_data(models.Model):
     def __str__(self):
         return self.customer_name + " - " + self.customer_email
 
-# class price_table(models.Model):
-#     adult_price = models.IntegerField()
-
+class price_table(models.Model):
+    adult_price = models.IntegerField()
+    children_price = models.IntegerField()
 
     def __str__(self):
-        return self.customer_name + " - " + self.customer_email
+        return " Adult & Children"
+
+class email_info(models.Model):
+    email = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+    default_text = models.CharField(max_length=5000)
+
+    def __str__(self):
+        return self.email

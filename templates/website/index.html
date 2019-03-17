@@ -172,9 +172,7 @@
                           			</div>
                           		</div>
                               <button type="submit" name="" class="btn btn-twitter">Confirm</button>
-                              <!-- <button type="submit" name="" class="btn btn-twitter" onClick="printJS({printable:'../../website/pdf/print.pdf',type:'pdf',showModal:true})">Print</button> -->
-                              <!-- <a href="/static/website/pdf/print.pdf">click ne</a> -->
-                              <!-- <input type="button" id="bt" onclick="print()" value="Print PDF" /> -->
+
                           </form>
 
                             </div>
@@ -185,9 +183,6 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 </main>
 </div>
@@ -206,9 +201,9 @@ $(document).ready(function(){
     $(".input").keyup(function(){
           var val1 = +$(".adult").val();
           var val2 = +$(".children").val();
-          $("#adult_price").val(val1*500);
-          $("#children_price").val(val2*350);
-          $("#total_price").val(val1*500 + val2*350);
+          $("#adult_price").val(val1*{{adult_price}});
+          $("#children_price").val(val2*{{children_price}});
+          $("#total_price").val(val1*{{adult_price}} + val2*{{children_price}});
    });
 });
 </script>
@@ -237,11 +232,13 @@ $(document).ready(function(){
             if (win) {
             //Browser has allowed it to be opened
             win.focus();
+            window.location.replace("/home");
         } else {
             //Browser has blocked it
             alert('Please allow popups for this website');
         }
         }, 2000);
+        //
 		// return false;
 
   		});
