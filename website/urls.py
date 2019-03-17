@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout_view/',views.logout_view, name = 'logout'),
     path('dashboard/',views.dashboard, name = 'dashboard'),
     path('settings/',views.settings, name = 'settings'),
+    path('make_pdf/',views.make_pdf, name = 'make_pdf'),
 ]

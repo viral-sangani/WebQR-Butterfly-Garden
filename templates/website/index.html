@@ -13,6 +13,7 @@
 	{% load static %}
     <link rel="stylesheet" href="{% static 'website/css/library.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/style.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/print.min.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <script src="{% static 'website/js/jquery.min.js' %}"></script>
@@ -123,35 +124,37 @@
                     </div>
 
                 </div>
+
                 <div class="table-responsive">
                   <section id="forms" class="section">
                   	<div class="container-fluid">
                           <div class="card">
                       		<div class="card-body">
-                            <form method="post">
+
+                            <form method="post" id="make_pdf">
                               {% csrf_token %}
                               <div class="row mb-4">
                           			<div class="col">
                           				<h6 class="">No. Of Adults</h6>
-                          				<input type="text" name="adult" class="form-control input adult" placeholder="" required="">
+                          				<input type="text" id="adult" name="adult" class="form-control input adult" placeholder="" required="">
                           			</div>
                           			<div class="col">
                           				<h6 class="">No. Of Children</h6>
-                          				<input type="text" name="children" class="form-control input children" placeholder="" required="">
+                          				<input type="text" id="children" name="children" class="form-control input children" placeholder="" required="">
                           			</div>
                           			<div class="col">
                           				<h6 class="">Name</h6>
-                          				<input type="text" name="name" class="form-control" id="" placeholder="" required="">
+                          				<input type="text" name="name" class="form-control" id="name" placeholder="" required="">
                           			</div>
                           		</div>
                               <div class="row mb-4">
                           			<div class="col">
                           				<h6 >Email-Address</h6>
-                          				<input type="text" name="email" class="form-control" id="" placeholder="" required="">
+                          				<input type="text" name="email" class="form-control" id="email" placeholder="" required="">
                           			</div>
                           			<div class="col">
                           				<h6 >Mobile Number</h6>
-                          				<input type="text" name="no" class="form-control" id="" placeholder="" required="">
+                          				<input type="text" name="no" class="form-control" id="no" placeholder="" required="">
                           			</div>
                           		</div>
                               <div class="row mb-4">
@@ -168,9 +171,12 @@
                           				<input type="text" name="name" disabled="disabled" class="form-control" id="total_price" required="">
                           			</div>
                           		</div>
-                              <input type="submit" name="submit" class="btn btn-twitter" value="Confirm">
-
+                              <button type="submit" name="" class="btn btn-twitter">Confirm</button>
+                              <!-- <button type="submit" name="" class="btn btn-twitter" onClick="printJS({printable:'../../website/pdf/print.pdf',type:'pdf',showModal:true})">Print</button> -->
+                              <!-- <a href="/static/website/pdf/print.pdf">click ne</a> -->
+                              <!-- <input type="button" id="bt" onclick="print()" value="Print PDF" /> -->
                           </form>
+
                             </div>
                           </div>
                   	</div>
@@ -179,6 +185,8 @@
             </div>
         </div>
     </div>
+
+
 
 </div>
 </main>
@@ -189,7 +197,7 @@
 <script src="{% static 'website/js/popper.min.js' %}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="{% static 'website/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'website/js/library.min.js' %}"></script>
-
+<script src="{% static 'website/js/print.min.js' %}"></script>
 
 
 <script src="{% static 'website/js/main.js' %}"></script>
@@ -204,6 +212,42 @@ $(document).ready(function(){
    });
 });
 </script>
+
+<script>
+	$(document).on('submit','#make_pdf',function(e){
+		e.preventDefault();
+  			$.ajax({
+  				type:'POST',
+  				url:'{% url "home" %}',
+  				data:{
+  					adult:$('#adult').val(),
+  					children:$('#children').val(),
+            name:$('#name').val(),
+  					email:$('#email').val(),
+            no:$('#no').val(),
+            total_price:$('#total_price').val(),
+  					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+  				}
+  			})
+        console.log('Done')
+        setTimeout(
+        function()
+          {
+            var win = window.open('/static/website/pdf/print.pdf');
+            if (win) {
+            //Browser has allowed it to be opened
+            win.focus();
+        } else {
+            //Browser has blocked it
+            alert('Please allow popups for this website');
+        }
+        }, 2000);
+		// return false;
+
+  		});
+
+</script>
+
 
 </body>
 
