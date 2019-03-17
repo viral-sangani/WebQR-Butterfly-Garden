@@ -6,6 +6,9 @@ import random
 import string
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def admin_login(request):
 	context = []
@@ -28,18 +31,33 @@ def admin_login(request):
 
 	return render(request,'registration/login.html')
 
-
+def logout_view(request):
+	logout(request)
+	return HttpResponseRedirect('/')
 
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 	return ''.join(random.choice(chars) for _ in range(size))
 
+@login_required(login_url="/")
 def dashboard(request):
 	user_data_obj = user_data.objects.all().order_by("time")
+	page = request.GET.get('page', 1)
+	paginator = Paginator(user_data_obj, 25)
+
+	try:
+		user_data_page = paginator.page(page)
+	except PageNotAnInteger:
+		user_data_page = paginator.page(1)
+	except EmptyPage:
+		user_data_page = paginator.page(paginator.num_pages)
+
 	context = {
-	'user_data_obj':user_data_obj,
+	'user_data_page':user_data_page,
 	}
 	return render(request,'website/dashboard.html',context)
 
+
+@login_required(login_url="/")
 def home(request):
 	if(request.method == 'POST'):
 		if(request.POST['submit']):
@@ -49,7 +67,7 @@ def home(request):
 			obj.customer_no = request.POST['no']
 			obj.adult = request.POST['adult']
 			obj.children = request.POST['children']
-			# obj.total_price = request.POST['adult']*500+request.POST['children']*350
+			obj.total_price = int(request.POST['adult'])*500+int(request.POST['children'])*350
 			obj.qr_link = 'https://qrcode.online/img/?type=text&size=7&data=Name: '+request.POST['name']+' | Number: '+request.POST['no']+' | Adult: '+request.POST['adult']+'| Children: '+request.POST['children']+' |Time: '+time.asctime( time.localtime(time.time()) )
 			obj.save()
 			img = qrcode.make('Name: '+request.POST['name']+'\nEmail: '+request.POST['email']+'\nNumber: '+request.POST['no']+'\nAdult: '+request.POST['adult']+'\nChildren: '+request.POST['children']+'\nTime: '+time.asctime( time.localtime(time.time()) ))
@@ -58,6 +76,7 @@ def home(request):
 
 	return render(request,'website/index.html')
 
-def settings(request):
 
+@login_required(login_url="/")
+def settings(request):
 	return render(request,'website/settings.html')

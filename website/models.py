@@ -11,7 +11,7 @@ class user_data(models.Model):
     time = models.TimeField(auto_now_add=True)
     # time.editable=True
     qr_link = models.CharField(max_length=2000, default='')
-    # total_price = models.IntegerRangeField(max_value = 100000)
+    total_price = models.IntegerField()
 
     def __str__(self):
         return self.customer_name + " - " + self.customer_email

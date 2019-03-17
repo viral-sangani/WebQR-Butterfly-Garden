@@ -46,7 +46,7 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right animated bounceInUp">
-                            <li><a href="index.html" class="animsition-link dropdown-item"><i class="feather icon-log-in"></i> Logout</a></li>
+                            <li><a href="{% url 'logout' %}" class="animsition-link dropdown-item"><i class="feather icon-log-in"></i> Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -110,16 +110,6 @@
                             <h4 class="card-title">Welcome</h4>
                             <p class="card-subtitle">Admin : Ticket Booking System</p>
                         </div>
-                        <div class="ml-auto">
-                            <div class="dl">
-                                <select class="custom-select">
-                                    <option value="0" selected="">Monthly</option>
-                                    <option value="1">Daily</option>
-                                    <option value="2">Weekly</option>
-                                    <option value="3">Yearly</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -136,31 +126,60 @@
                                 <th class="border-top-0">More Details</th>
                             </tr>
                         </thead>
+                      <div class="infinite-container">
                         <tbody>
-                            <tr>
-                              {% for obj in user_data_obj %}
-                                <td>
+
+                              {% for obj in user_data_page %}
+                              <tr>
+                                <td class="infinite-item">
                                     <div class="d-flex align-items-center">
                                         <div class="">
                                             <h4 class="m-b-0 font-16">{{obj.pk}}</h4>
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{obj.date}}</td>
-                                <td>{{obj.time}}</td>
-                                <td>
+                                <td class="infinite-item">{{obj.date}}</td>
+                                <td class="infinite-item">{{obj.time}}</td>
+                                <td class="infinite-item">
                                     <label class="label label-danger">{{obj.customer_name}}</label>
                                 </td>
-                                <td>{{obj.adult}}</td>
-                                <td>{{obj.children}}</td>
-                                <td>
+                                <td class="infinite-item">{{obj.adult}}</td>
+                                <td class="infinite-item">{{obj.children}}</td>
+                                <td class="infinite-item">
                                   <a href="{{obj.qr_link}}">Click Here</a>
                                 </td>
+                                </tr>
                                 {% endfor %}
-                            </tr>
+
                         </tbody>
+                      </div>
                     </table>
                 </div>
+                {% if user_data_page.has_other_pages %}
+        					<nav style="margin-left:50px;" aria-label="Page navigation">
+                  <div class="mb-4">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                      {% if user_data_page.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ user_data_page.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i><span class="sr-only">Previous</span></a></li>
+                      {% endif %}
+
+                      {% for i in user_data_page.paginator.page_range %}
+                        {% if user_data_page.number == i %}
+                        <li class="active page-item"><a class="page-link">{{i}}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{i}}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if user_data_page.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ user_data_page.next_page_number }}"><i class="fa fa-chevron-right" aria-hidden="true"></i><span class="sr-only">Next</span></a></li>
+                      {% endif %}
+                      </ul>
+                    </nav>
+                  </div>
+                </nav>
+                {% endif %}
+
             </div>
         </div>
     </div>
@@ -174,11 +193,21 @@
 <script src="{% static 'website/js/popper.min.js' %}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="{% static 'website/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'website/js/library.min.js' %}"></script>
-
-
-
 <script src="{% static 'website/js/main.js' %}"></script>
+<!-- <script src="{% static 'website/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'website/js/infinite.js' %}"></script>
 
+<script>
+  var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+    onBeforePageLoad: function () {
+      $('.loading').show();
+    },
+    onAfterPageLoad: function ($items) {
+      $('.loading').hide();
+    }
+  });
+</script> -->
 </body>
 
 </html>
