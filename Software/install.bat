@@ -5,4 +5,4 @@ pip install qrcode
 pip install xlwt
 pip install image
 pip install reportlab
-pause
+pip install requests
