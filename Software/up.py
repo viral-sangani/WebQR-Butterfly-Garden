@@ -7,7 +7,7 @@ r = requests.get(image_url) # create HTTP response object
   
 # send a HTTP request to the server and save 
 # the HTTP response in a response object called r 
-with open("manage.py",'wb') as f: 
+with open("run_updates.py",'wb') as f: 
   
     # Saving received content as a png file in 
     # binary format 
