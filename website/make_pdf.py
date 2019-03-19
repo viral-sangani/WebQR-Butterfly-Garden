@@ -10,7 +10,7 @@ def pdf(name, adult, children, total, time):
     canvas.drawInlineImage("qrcodes/qrcode.png", 72, 271, width=155,height=155)
     canvas.line(10,264,290,264)
     canvas.setFont('Helvetica', 16)
-    canvas.drawString(20,240,'Total : '+str(total))
+    canvas.drawString(20,240,'Total : '+str(total) + " THB")
     canvas.setFont('Helvetica', 12)
     canvas.drawString(20,220,'Name : '+str(name))
     canvas.drawString(20,200,'Adult : '+str(adult))

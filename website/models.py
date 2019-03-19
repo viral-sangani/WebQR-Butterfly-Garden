@@ -6,10 +6,7 @@ class user_data(models.Model):
     customer_no = models.IntegerField()
     adult = models.IntegerField()
     children = models.IntegerField()
-    date = models.DateField(auto_now_add=True)
-    date.editable=True
-    time = models.TimeField(auto_now_add=True)
-    time.editable=True
+    date_time = models.CharField(max_length=200, default='')
     qr_link = models.CharField(max_length=2000, default='')
     total_price = models.IntegerField()
 

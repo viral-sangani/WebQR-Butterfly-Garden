@@ -122,12 +122,12 @@
                     <table class="table v-middle">
                         <thead>
                             <tr class="bg-light">
-                                <th class="border-top-0">Sr. No</th>
-                                <th class="border-top-0">Date</th>
-                                <th class="border-top-0">Time</th>
+                                <th class="border-top-0">ID</th>
+                                <th class="border-top-0">Date & Time</th>
                                 <th class="border-top-0">Name</th>
                                 <th class="border-top-0">Adult</th>
                                 <th class="border-top-0">Children</th>
+                                <th class="border-top-0">Total Price</th>
                                 <th class="border-top-0">More Details</th>
                             </tr>
                         </thead>
@@ -143,13 +143,13 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="infinite-item">{{obj.date}}</td>
-                                <td class="infinite-item">{{obj.time}}</td>
+                                <td class="infinite-item">{{obj.date_time}}</td>
                                 <td class="infinite-item">
                                     <label class="label label-danger">{{obj.customer_name}}</label>
                                 </td>
                                 <td class="infinite-item">{{obj.adult}}</td>
                                 <td class="infinite-item">{{obj.children}}</td>
+                                <td class="infinite-item">{{obj.total_price}} ฿</td>
                                 <td class="infinite-item">
                                   <a href="{{obj.qr_link}}">Click Here</a>
                                 </td>
@@ -157,6 +157,7 @@
                                 {% endfor %}
 
                         </tbody>
+
                       </div>
                     </table>
                 </div>

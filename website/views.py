@@ -44,7 +44,7 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 
 @login_required(login_url="/")
 def dashboard(request):
-	user_data_obj = user_data.objects.all().order_by("time")
+	user_data_obj = user_data.objects.all().order_by("pk")
 	page = request.GET.get('page', 1)
 	paginator = Paginator(user_data_obj, 25)
 
@@ -76,20 +76,27 @@ def home(request):
 		default = o1.default_text
 
 	if(request.method == 'POST'):
+		current_time = time.asctime( time.localtime(time.time()) )
+		formatted_time = current_time[:10]+"--"+current_time[11:13]+"-"+current_time[14:16]+"-"+current_time[17:19]
+		formatted_time1 = current_time[:10]+" "+current_time[11:13]+"-"+current_time[14:16]+"-"+current_time[17:19]
+		total_price = int(request.POST['adult'])*adult_price+int(request.POST['children'])*children_price
+		qr_link = ('https://qrcode.online/img/?type=text&size=7&data=Name- '+request.POST['name']+' | Total- '+str(total_price)+' THB | Number- '+request.POST['no']+' | Adult- '+request.POST['adult']+'| Children- '+request.POST['children']+' |Time- '+formatted_time).replace(" ","%20")
+
 		obj = user_data()
 		obj.customer_name = request.POST['name']
 		obj.customer_email = request.POST['email']
 		obj.customer_no = request.POST['no']
 		obj.adult = request.POST['adult']
 		obj.children = request.POST['children']
-		obj.total_price = int(request.POST['adult'])*adult_price+int(request.POST['children'])*children_price
-		qr_link = ('https://qrcode.online/img/?type=text&size=7&data=Name: '+request.POST['name']+' | Number: '+request.POST['no']+' | Adult: '+request.POST['adult']+'| Children: '+request.POST['children']+' |Time: '+time.asctime( time.localtime(time.time()))).replace(" ","%20")
+		obj.total_price = total_price
 		obj.qr_link = qr_link
+		obj.date_time = formatted_time
 		obj.save()
-		img = qrcode.make('Name: '+request.POST['name']+'\nEmail: '+request.POST['email']+'\nNumber: '+request.POST['no']+'\nAdult: '+request.POST['adult']+'\nChildren: '+request.POST['children']+'\nTime: '+time.asctime( time.localtime(time.time()) ))
+
+		img = qrcode.make('Name- '+request.POST['name']+'\nTotal- '+str(total_price)+'\nEmail- '+request.POST['email']+'\nNumber- '+request.POST['no']+'\nAdult- '+request.POST['adult']+'\nChildren- '+request.POST['children']+'\nTime- '+formatted_time1)
 		with open('qrcodes/qrcode.png', 'wb') as f:
 			img.save(f)
-		pdf(request.POST['name'], request.POST['adult'], request.POST['children'], int(request.POST['adult'])*500+int(request.POST['children'])*350, time.asctime( time.localtime(time.time()) ))
+		pdf(request.POST['name'], request.POST['adult'], request.POST['children'], str(total_price), time.asctime( time.localtime(time.time()) ))
 
 		username=email
 		password=password
@@ -98,9 +105,16 @@ def home(request):
 		server.ehlo()
 		server.starttls()
 		server.login(username, password)
-		msg = "Hello Mr/Mrs. "+request.POST['name']+default+qr_link
-		server.sendmail(username, target, msg)
-		print("Mail send")
+		subject = "QR Ticket Of Butterfly Garden"
+		body = default + "\n" + qr_link
+		headers = ["From: " + email,
+			"Subject: "+ subject,
+			"To: "+ request.POST['name'],
+			"MIME-Version: 1.0",
+               "Content-Type: text/html"]
+		headers = "\r\n".join(headers)
+		# msg = "Hello Mr/Mrs. "+request.POST['name']+default+" "+qr_link
+		server.sendmail(username, target, headers + "\r\n\r\n" +  body)
 
 	context = {
 	'adult_price':adult_price,
@@ -128,7 +142,6 @@ def settings(request):
 		email = o1.email
 		password = o1.password
 		default_text = o1.default_text
-		print()
 
 	context = {
 	'adult_price':adult_price,
@@ -151,14 +164,14 @@ def export_users_xls(request):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Customer Name', 'Customer Email', 'Customer No', 'Adult', 'Children','Date','Time','Total Price',]
+    columns = ['Customer Name', 'Customer Email', 'Customer No', 'Adult', 'Children','Date & Time','Total Price',]
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
 
     font_style = xlwt.XFStyle()
 
-    rows = user_data.objects.all().values_list('customer_name', 'customer_email', 'customer_no', 'adult','children','date','time','total_price')
+    rows = user_data.objects.all().values_list('customer_name', 'customer_email', 'customer_no', 'adult','children','date_time','total_price')
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):

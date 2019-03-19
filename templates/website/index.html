@@ -151,7 +151,7 @@
                               <div class="row mb-4">
                           			<div class="col">
                           				<h6 class="">Adult Price</h6>
-                          				<input type="text" name="adult" disabled="disabled" class="form-control" id="adult_price" required="">
+                          				<input type="text" name="adult" disabled="disabled" class="form-control" id="adult_price" required>
                           			</div>
                           			<div class="col">
                           				<h6 class="">Children Price</h6>
@@ -192,9 +192,9 @@ $(document).ready(function(){
     $(".input").keyup(function(){
           var val1 = +$(".adult").val();
           var val2 = +$(".children").val();
-          $("#adult_price").val(val1*{{adult_price}});
-          $("#children_price").val(val2*{{children_price}});
-          $("#total_price").val(val1*{{adult_price}} + val2*{{children_price}});
+          $("#adult_price").val(val1*{{adult_price}}+" ฿");
+          $("#children_price").val(val2*{{children_price}}+" ฿");
+          $("#total_price").val(val1*{{adult_price}} + val2*{{children_price}}+" ฿");
    });
 });
 </script>
