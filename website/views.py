@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import user_data, price_table, email_info
+from .models import user_data, price_table, email_info, daily_counter
 import qrcode
 import time
 import random
@@ -75,6 +75,12 @@ def home(request):
 		password = o1.password
 		default = o1.default_text
 
+
+	daily_count = daily_counter.objects.filter(pk=1)
+	for o2 in daily_count:
+		today = o2.today
+		counter = o2.counter
+
 	if(request.method == 'POST'):
 		if request.POST['name'] == "":
 			name_n = "N/a"
@@ -87,10 +93,15 @@ def home(request):
 		total_price = int(request.POST['adult'])*adult_price+int(request.POST['children'])*children_price
 		qr_link = ('https://qrcode.online/img/?type=text&size=7&data=Name- '+	name_n+' | Total- '+str(total_price)+' THB | Number- '+request.POST['no']+' | Adult- '+request.POST['adult']+'| Children- '+request.POST['children']+' |Time- '+formatted_time).replace(" ","%20")
 
+		current_day = time.asctime( time.localtime(time.time()))[:10]
+		if today == current_day:
+			daily_counter.objects.filter(pk=1).update(counter=counter+1)
+
+		elif today != current_day:
+			daily_counter.objects.filter(pk=1).update(today=current_day,counter=1)
 
 		obj = user_data()
 		obj.customer_name = name_n
-		print(name_n)
 		if request.POST['email'] == "":
 			obj.customer_email = "None"
 		else:
@@ -111,6 +122,7 @@ def home(request):
 		obj.total_price = total_price
 		obj.qr_link = qr_link
 		obj.date_time = formatted_time
+		obj.daily_counter = counter
 		obj.save()
 
 		
@@ -118,7 +130,7 @@ def home(request):
 		img = qrcode.make('Name- '+name_n+'\nTotal- '+str(total_price)+'\nEmail- '+request.POST['email']+'\nNumber- '+request.POST['no']+'\nAdult- '+request.POST['adult']+'\nChildren- '+request.POST['children']+'\nTime- '+formatted_time1)
 		with open('qrcodes/qrcode.png', 'wb') as f:
 			img.save(f)
-		pdf(name_n, request.POST['adult'], request.POST['children'], str(total_price), time.asctime( time.localtime(time.time()) ))
+		pdf(name_n, request.POST['adult'], request.POST['children'], str(total_price), time.asctime( time.localtime(time.time()) ), counter)
 
 		if request.POST['email'] != "":
 			username=email
@@ -155,6 +167,7 @@ def settings(request):
 		elif 'delete' in request.POST:
 			obj = user_data.objects.all().delete()
 			user_data.objects.create(customer_name="sample", customer_email="N/a",customer_no="0",adult="0",children="0",date_time="0",qr_link="0",total_price="0")
+			daily_counter.objects.filter(pk=1).update(counter=1)
 
 	obj = price_table.objects.filter(pk=1)
 	for o in obj:

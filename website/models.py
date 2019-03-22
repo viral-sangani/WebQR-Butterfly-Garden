@@ -9,6 +9,7 @@ class user_data(models.Model):
     date_time = models.CharField(max_length=200, default='')
     qr_link = models.CharField(max_length=2000, default='')
     total_price = models.IntegerField()
+    daily_counter = models.IntegerField(default=1)
 
     def __str__(self):
         return self.customer_name + " - " + self.customer_email
@@ -27,3 +28,10 @@ class email_info(models.Model):
 
     def __str__(self):
         return self.email
+
+class daily_counter(models.Model):
+    today = models.CharField(max_length=50)
+    counter = models.IntegerField()
+
+    def __str__(self):
+        return self.today + " - "+str(self.counter)
