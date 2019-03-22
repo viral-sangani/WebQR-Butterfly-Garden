@@ -172,6 +172,10 @@
                             </div>
                           </div>
                           <a style="margin-bottom:20px;margin-left:20px;" href="{% url 'export_users_xls' %}" class="btn btn-twitter">Export To Excel File</a>
+                          <form method="post">
+                            {% csrf_token %}
+                          <input type='submit' name='delete' style="margin-bottom:20px;margin-left:20px;color: red;" class="btn btn-twitter" value="Clear whole DataBase">
+                        </form>
                     </div>
 
                   </section>

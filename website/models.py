@@ -2,8 +2,8 @@ from django.db import models
 
 class user_data(models.Model):
     customer_name = models.CharField(max_length=200, default='')
-    customer_email = models.EmailField(max_length=200, blank=False)
-    customer_no = models.IntegerField()
+    customer_email = models.EmailField(max_length=200,blank=True ,default='None')
+    customer_no = models.IntegerField(default='0',blank=True)
     adult = models.IntegerField()
     children = models.IntegerField()
     date_time = models.CharField(max_length=200, default='')
