@@ -44,7 +44,7 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 
 @login_required(login_url="/")
 def dashboard(request):
-	user_data_obj = user_data.objects.all().order_by("pk")
+	user_data_obj = user_data.objects.all().order_by("-pk")
 	page = request.GET.get('page', 1)
 	paginator = Paginator(user_data_obj, 25)
 
