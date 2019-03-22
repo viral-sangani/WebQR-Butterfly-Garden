@@ -1,3 +1,3 @@
 @echo off
-python update.py
+python up.py
 pause
